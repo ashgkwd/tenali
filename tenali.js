@@ -91,8 +91,6 @@ Tenali._engineHelper = function() {
 	}
 
 	function compileUsingEngine(options) {
-		// Handlebars .compile
-		// Mustache function()
 		if(!options.engine || options.engine == "none") return;
 		if(this.engineStorage[options.engine]) {
 			return this.engineStorage[options.engine].template(options.template)(options.options);
@@ -180,6 +178,14 @@ function Tenali() {
 	function listOfRegisteredSets() {
 		return this.storage;
 	}
+
+	/** registers a templating library
+	* @param {String} name which will be used in schema
+	* @param {Object} engine - a reference to Object of templating library. It must have .template(string)(values) interface
+	* engine's .template function takes a string as template and returns a function which will
+	* take values object as a parameter and return a compiled template.
+	* @see LoDash's _.template function
+	*/
 
 	function addEngine(name, engine) {
 		engineHelper.register(name, engine);
