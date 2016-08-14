@@ -1,9 +1,9 @@
 /** 
-* @author: Ashish Gaikwad <ash.gkwd@gmail.com>
-* @licence: MIT
-* @version: 0.0.1
-* @description: Tenali is form element generating library based on JSON schema
-* @link: http://github.com/ashgkwd/tenali
+* @author Ashish Gaikwad <ash.gkwd@gmail.com>
+* @license MIT
+* @version 0.0.1
+* @desc Tenali is form element generating library based on JSON schema
+* {@link http://github.com/ashgkwd/tenali}
 */
 
 Tenali._logHelper = function(level, label, message) {
@@ -74,6 +74,11 @@ Tenali._storageHelper = function() {
 	}
 }
 
+/** Represents a Tenali - a schema based element generation library
+* @constructor
+* @exports
+*/
+
 function Tenali() {
 	this.storage = {}; // In memory key:value store
 	var helper = Tenali._storageHelper();
@@ -84,9 +89,9 @@ function Tenali() {
 		list: listOfRegisteredSets.bind(this)
 	}
 
-	/** registerNewTemplate takes one parameter `templates`
+	/** Registers templates in storage
 	*
-	* templates:array
+	* @param {Array} templates
 	* Format: [{input: <type>, variant: <style>, engine: <templating library>, template: <template>}, ...]
 	*
 	* <type>:string or array which represents type attribute of input element or a custom element type.
@@ -108,8 +113,9 @@ function Tenali() {
 		templates.forEach(helper.storeTemplate(this.storage));
 	}
 
-	/** getElement
-	* schema:array
+	/** Returns template string as per schema
+	* @param {Array} schema
+	* @return {String}
 	* Format: [{input: <input type>, variant: <template style>, engine: <templating library>, options: {<variable>: <value>}}]
 	*
 	* <input type>:string which represents type attribute of input element or a custom element type.
@@ -128,7 +134,8 @@ function Tenali() {
 		return schema.map(helper.fetchTemplate(this.storage));
 	}
 
-	/** listOfRegisteredSets
+	/** Returns storage
+	* @return {Object} storage
 	*/
 
 	function listOfRegisteredSets() {
