@@ -58,9 +58,16 @@ Tenali._storageHelper = function() {
 			if(storage[schema.input]) {
 				if(schema.variant && storage[schema.input][schema.variant]) {
 					if (schema.engine) { // If schema.engine is specified but storage doesn't have it, then it must return undefined
-						return storage[schema.input][schema.variant][schema.engine.toLowerCase()]
+						return {
+							template: storage[schema.input][schema.variant][schema.engine.toLowerCase()],
+							engine: schema.engine,
+							options: schema.options
+						}
 					} else { // No preference for schema.engine, return last one storage has
-						return lastFromObject(storage[schema.input][schema.variant]);
+						return {
+							template: lastFromObject(storage[schema.input][schema.variant]),
+							options: schema.options
+						}
 					}
 				} else {
 					if(!schema.variant) log('e', 'fetchTemplate', 'Schema Must Specify A Variant');
@@ -74,6 +81,31 @@ Tenali._storageHelper = function() {
 	}
 }
 
+Tenali._engineHelper = function() {
+	this.engineStorage = {} // stores reference to templating library
+	var log = Tenali._logHelper();
+
+	return {
+		compile: compileUsingEngine.bind(this),
+		register: registerNewTemplateEngine.bind(this)
+	}
+
+	function compileUsingEngine(options) {
+		// Handlebars .compile
+		// Mustache function()
+		if(!options.engine || options.engine == "none") return;
+		if(this.engineStorage[options.engine]) {
+			return this.engineStorage[options.engine].template(options.template)(options.options);
+		} else {
+			log('e', 'compileUsingEngine', 'Engine Is Not Known: ' + options.engine + ' Please Register The Engine!');
+		}
+	}
+
+	function registerNewTemplateEngine(name, engine) {
+		this.engineStorage[name] = engine;
+	}
+}
+
 /** Represents a Tenali - a schema based element generation library
 * @constructor
 * @exports
@@ -82,8 +114,12 @@ Tenali._storageHelper = function() {
 function Tenali() {
 	this.storage = {}; // In memory key:value store
 	var helper = Tenali._storageHelper();
+	var engineHelper = new Tenali._engineHelper();
 
 	return {
+		engine: {
+			add: addEngine.bind(this)
+		},
 		register: registerNewTemplateSet.bind(this),
 		get: getElement.bind(this),
 		list: listOfRegisteredSets.bind(this)
@@ -131,7 +167,10 @@ function Tenali() {
 	*/
 
 	function getElement(schema) {
-		return schema.map(helper.fetchTemplate(this.storage));
+		return schema
+			.map(helper.fetchTemplate(this.storage))
+			.filter(Boolean)
+			.map(engineHelper.compile);
 	}
 
 	/** Returns storage
@@ -140,5 +179,9 @@ function Tenali() {
 
 	function listOfRegisteredSets() {
 		return this.storage;
+	}
+
+	function addEngine(name, engine) {
+		engineHelper.register(name, engine);
 	}
 }
