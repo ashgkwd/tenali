@@ -58,7 +58,7 @@ Tenali._storageHelper = function() {
 			if(storage[schema.input]) {
 				if(schema.variant && storage[schema.input][schema.variant]) {
 					if (schema.engine) { // If schema.engine is specified but storage doesn't have it, then it must return undefined
-						return storage[schema.input][schema.variant][schema.engine]
+						return storage[schema.input][schema.variant][schema.engine.toLowerCase()]
 					} else { // No preference for schema.engine, return last one storage has
 						return lastFromObject(storage[schema.input][schema.variant]);
 					}
