@@ -83,7 +83,7 @@ Tenali._storageHelper = function() {
 
 Tenali._engineHelper = function() {
 	this.engineStorage = {} // stores reference to templating library
-	var log = Tenali._logHelper();
+	var log = Tenali._logHelper;
 
 	return {
 		compile: compileUsingEngine.bind(this),
