@@ -11,8 +11,8 @@ Tenali._logHelper = function(level, label, message) {
 		case 'e': console.error(label, message);
 		case 'w': console.warn(label, message);
 		case 'i': console.info(label, message);
-		case 'd': console.debug(label, message);
-		default: console.info(label, message);
+		case 'd': console.debug(label, message); break;
+		default: console.log(label, message);
 	}
 }
 
@@ -95,7 +95,7 @@ Tenali._engineHelper = function() {
 
 		if(!schema.engine || schema.engine == "none") return template;
 
-		var engineLib = this.engineStorage[schema.engine];
+		var engineLib = this.engineStorage[schema.engine.toLowerCase()];
 		if(engineLib) {
 			return engineLib.template(template)({
 				_meta_: schema,
@@ -107,7 +107,7 @@ Tenali._engineHelper = function() {
 	}
 
 	function registerNewTemplateEngine(name, engine) {
-		this.engineStorage[name] = engine;
+		this.engineStorage[name.toLowerCase()] = engine;
 	}
 }
 
@@ -119,8 +119,14 @@ Tenali._templateHelper = function() {
 	return templateHelper;
 
 	function toJSON(html) {
-		if(html && html.getAttribute) return {
-			input: html.getAttribute("input"),
+		if(!html || !html.getAttribute) return;
+
+		var input = html.getAttribute("input");
+		if(input.charAt(0) == '[' || input.charAt(0) == '{')
+			input = JSON.parse(input);
+
+		return {
+			input: input,
 			variant: html.getAttribute("variant"),
 			engine: html.getAttribute("engine"),
 			template: html.innerHTML
