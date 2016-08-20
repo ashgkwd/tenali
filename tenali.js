@@ -60,13 +60,12 @@ Tenali._storageHelper = function() {
 					if (schema.engine) { // If schema.engine is specified but storage doesn't have it, then it must return undefined
 						return {
 							template: storage[schema.input][schema.variant][schema.engine.toLowerCase()],
-							engine: schema.engine,
-							options: schema.options
+							schema: schema
 						}
 					} else { // No preference for schema.engine, return last one storage has
 						return {
 							template: lastFromObject(storage[schema.input][schema.variant]),
-							options: schema.options
+							schema: schema
 						}
 					}
 				} else {
@@ -90,17 +89,45 @@ Tenali._engineHelper = function() {
 		register: registerNewTemplateEngine.bind(this)
 	}
 
-	function compileUsingEngine(options) {
-		if(!options.engine || options.engine == "none") return;
-		if(this.engineStorage[options.engine]) {
-			return this.engineStorage[options.engine].template(options.template)(options.options);
+	function compileUsingEngine(template_and_schema) {
+		var schema = template_and_schema.schema;
+		var template = template_and_schema.template;
+
+		if(!schema.engine || schema.engine == "none") return template;
+
+		var engineLib = this.engineStorage[schema.engine];
+		if(engineLib) {
+			return engineLib.template(template)({
+				_meta_: schema,
+				data: schema.data
+			});
 		} else {
-			log('e', 'compileUsingEngine', 'Engine Is Not Known: ' + options.engine + ' Please Register The Engine!');
+			log('e', 'compileUsingEngine', 'Engine Is Not Known: ' + schema.engine + ' Please Register The Engine!');
 		}
 	}
 
 	function registerNewTemplateEngine(name, engine) {
 		this.engineStorage[name] = engine;
+	}
+}
+
+Tenali._templateHelper = function() {
+	var templateHelper = {};
+	templateHelper.getById = getTemplateById;
+	templateHelper.getSetById = getTemplateSetById;
+
+	return templateHelper;
+
+	function getTemplateById(id) {
+		return document.getElementById(id).innerHTML;
+	}
+
+	function getTemplateSetById(id) {
+		var cn = document.getElementById(id).childNodes
+		console.log('aasfa', cn);
+		return Array.prototype.map.call(cn, function(item) {
+			return item.innerHTML;
+		})
 	}
 }
 
@@ -111,16 +138,21 @@ Tenali._engineHelper = function() {
 
 function Tenali() {
 	this.storage = {}; // In memory key:value store
-	var helper = Tenali._storageHelper();
+	var storageHelper = Tenali._storageHelper();
 	var engineHelper = new Tenali._engineHelper();
+	var templateHelper = Tenali._templateHelper();
 
 	return {
+		register: registerNewTemplateSet.bind(this),
+		get: getElement.bind(this),
+		list: listOfRegisteredSets.bind(this),
 		engine: {
 			add: addEngine.bind(this)
 		},
-		register: registerNewTemplateSet.bind(this),
-		get: getElement.bind(this),
-		list: listOfRegisteredSets.bind(this)
+		template: {
+			getById: templateHelper.getById,
+			getSetById: templateHelper.getSetById
+		}
 	}
 
 	/** Registers templates in storage
@@ -144,7 +176,7 @@ function Tenali() {
 	*/
 
 	function registerNewTemplateSet(templates) {
-		templates.forEach(helper.storeTemplate(this.storage));
+		templates.forEach(storageHelper.storeTemplate(this.storage));
 	}
 
 	/** Returns template string as per schema
@@ -166,7 +198,7 @@ function Tenali() {
 
 	function getElement(schema) {
 		return schema
-			.map(helper.fetchTemplate(this.storage))
+			.map(storageHelper.fetchTemplate(this.storage))
 			.filter(Boolean)
 			.map(engineHelper.compile);
 	}
