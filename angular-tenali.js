@@ -47,6 +47,10 @@
 		service.list = list;
 		service.compile = compile;
 		service.engine = {add: add};
+		service.template = {
+			getById: getById,
+			getSetById: getSetById
+		}
 
 		return service;
 
@@ -70,6 +74,16 @@
 
 		function add(name, instance) {
 			tenaliInstance.engine.add(name, instance);
+		}
+
+		function getById(id) {
+			return tenaliInstance.template.getById(id);
+		}
+
+		function getSetById(id) {
+			var s= tenaliInstance.template.getSetById(id);
+			console.log('ANGULAR', s);
+			return s;
 		}
 	}
 })();
