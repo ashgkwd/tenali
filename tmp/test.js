@@ -9,24 +9,24 @@ function setDefaults(item) {
 	return item;
 }
 
-var myTemplate = [{
-	input: ["text", "password", "datetime", "datetime-local", "date", "month", "time", "week", "number", "email", "url", "search", "tel", "color"],
-	template: "<label>" +
-		"<%= data.label %>" +
-		"<span class='inline-label'>" +
-		"<% if(data.prefix) { %><span class='form-label'><%= data.prefix %></span><% } %>" +
-		"<input type='<%= data.type || _meta_.input %>' name='<%= data.name %>' placeholder='<%= data.placeholder %>'>" +
-		"<% if(data.sufix) { %><span class='form-label'><%= data.sufix %></span><% } %>" +
-		"</span>" +
-		"</label>"
-}, {
-	input: "select",
-	template: "<label><%= data.label %></label>" +
-		"<select name='<%= data.name %>'>" +
-		"<% data.option.forEach(function(op) { %>" +
-			"<option value='<%= op %>'><%= op %></option>" +
-		"<% }); %>"
-}].map(setDefaults);
+// var myTemplate = [{
+// 	input: ["text", "password", "datetime", "datetime-local", "date", "month", "time", "week", "number", "email", "url", "search", "tel", "color"],
+// 	template: "<label>" +
+// 		"<%= data.label %>" +
+// 		"<span class='inline-label'>" +
+// 		"<% if(data.prefix) { %><span class='form-label'><%= data.prefix %></span><% } %>" +
+// 		"<input type='<%= data.type || _meta_.input %>' name='<%= data.name %>' placeholder='<%= data.placeholder %>'>" +
+// 		"<% if(data.sufix) { %><span class='form-label'><%= data.sufix %></span><% } %>" +
+// 		"</span>" +
+// 		"</label>"
+// }, {
+// 	input: "select",
+// 	template: "<label><%= data.label %></label>" +
+// 		"<select name='<%= data.name %>'>" +
+// 		"<% data.option.forEach(function(op) { %>" +
+// 			"<option value='<%= op %>'><%= op %></option>" +
+// 		"<% }); %>"
+// }].map(setDefaults);
 
 var mySchema = [{
 	input: "text",
@@ -59,7 +59,9 @@ var mySchema = [{
 	}
 }].map(setDefaults);
 
-var testT = new Tenali();
-testT.register(myTemplate);
-testT.engine.add(myEngine, _);
-console.log(testT.list());
+// var testT = new Tenali();
+// testT.register(myTemplate);
+// var myHtmlToTemplate = testT.template.getSetById('fst');
+// testT.register(myHtmlToTemplate);
+// testT.engine.add(myEngine, _);
+// console.log(testT.list(), myHtmlToTemplate);

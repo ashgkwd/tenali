@@ -5,8 +5,10 @@ angular.module('krishnadevraya', ['TenaliFx'])
 config.$inject = ['tenaliCompiler'];
 function config(tc) {
 	// configure tenaliForm directive
-	tc.register(myTemplate); // from test.js
 	tc.engine.add("LoDash", _);
+	// tc.register(myTemplate); // from test.js
+	var myHtmlToTemplate = tc.template.getSetById('fst');
+	tc.register(myHtmlToTemplate);
 }
 
 mainCtrl.$inject = ['$scope'];

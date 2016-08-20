@@ -3,12 +3,6 @@
 <head>
 	<meta charset="utf-8">
 	<title>Angular Using Tenali For Form Generation</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.js"></script>
-	<script src="../tenali.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
-	<script src="../angular-tenali.js"></script>
-	<script src="test.js"></script>
-	<script src="test-angular-tenali.js"></script>
 </head>
 <body>
 <h1>Tenali - sabse chatur budhiman</h1>
@@ -22,14 +16,24 @@
 </template>
 
 <aside style="display:none" id="fst">
-	<template variant="foundation-apps" input="text" engine="LoDash">
+	<script type="text/template" variant="foundation-apps" input='["text", "password", "datetime", "datetime-local", "date", "month", "time", "week", "number", "email", "url", "search", "tel", "color"]' engine="LoDash">
 		<label><%= data.label %><span class='inline-label'><% if(data.prefix) { %><span class='form-label'><%= data.prefix %></span><% } %><input type='<%= data.type || _meta_.input %>' name='<%= data.name %>' placeholder='<%= data.placeholder %>'><% if(data.sufix) { %><span class='form-label'><%= data.sufix %></span><% } %></span></label>
-	</template>
-	<template variant="foundation-apps" input="select" engine="LoDash">
-		<label><%= data.label %></label><select name='<%= data.name %>'><% data.option.forEach(function(op) { %><option value='<%= op %>'><%= op %></option><% }); %>
-	</template>
+	</script>
+	<script type="text/template" variant="foundation-apps" input="select" engine="LoDash">
+		<label><%= data.label %></label>
+		<select name='<%= data.name %>'>
+ 		<% data.option.forEach(function(op) { %>
+ 			<option value='<%= op %>'><%= op %></option>
+ 		<% }); %>
+	</script>
 </aside>
 
 <link rel="stylesheet" href="foundation-apps.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.js"></script>
+	<script src="../tenali.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+	<script src="../angular-tenali.js"></script>
+	<script src="test.js"></script>
+	<script src="test-angular-tenali.js"></script>
 </body>
 </html>
