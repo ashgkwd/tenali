@@ -17,15 +17,15 @@
 	<tenali-form from="schema" for="pikachu" using="LoDash"></tenali-form>
 </div>
 
-<template style="display:none" id="ft" variant="foundation-apps" input="text">
+<template style="display:none" id="ft" variant="foundation-apps" input="text" engine="LoDash">
 	<label><%= data.label %><span class='inline-label'><% if(data.prefix) { %><span class='form-label'><%= data.prefix %></span><% } %><input type='<%= data.type || _meta_.input %>' name='<%= data.name %>' placeholder='<%= data.placeholder %>'><% if(data.sufix) { %><span class='form-label'><%= data.sufix %></span><% } %></span></label>
 </template>
 
 <aside style="display:none" id="fst">
-	<template variant="foundation-apps" input="text">
+	<template variant="foundation-apps" input="text" engine="LoDash">
 		<label><%= data.label %><span class='inline-label'><% if(data.prefix) { %><span class='form-label'><%= data.prefix %></span><% } %><input type='<%= data.type || _meta_.input %>' name='<%= data.name %>' placeholder='<%= data.placeholder %>'><% if(data.sufix) { %><span class='form-label'><%= data.sufix %></span><% } %></span></label>
 	</template>
-	<template variant="foundation-apps" input="select">
+	<template variant="foundation-apps" input="select" engine="LoDash">
 		<label><%= data.label %></label><select name='<%= data.name %>'><% data.option.forEach(function(op) { %><option value='<%= op %>'><%= op %></option><% }); %>
 	</template>
 </aside>
