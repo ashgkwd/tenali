@@ -118,16 +118,24 @@ Tenali._templateHelper = function() {
 
 	return templateHelper;
 
+	function toJSON(html) {
+		if(html && html.getAttribute) return {
+			input: html.getAttribute("input"),
+			variant: html.getAttribute("variant"),
+			engine: html.getAttribute("engine"),
+			template: html.innerHTML
+		}
+	}
+
 	function getTemplateById(id) {
-		return document.getElementById(id).innerHTML;
+		return toJSON(document.getElementById(id));
 	}
 
 	function getTemplateSetById(id) {
 		var cn = document.getElementById(id).childNodes
-		console.log('aasfa', cn);
 		return Array.prototype.map.call(cn, function(item) {
-			return item.innerHTML;
-		})
+			return toJSON(item);
+		}).filter(Boolean);
 	}
 }
 
