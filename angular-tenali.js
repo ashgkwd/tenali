@@ -4,38 +4,65 @@
 	.directive('tenaliForm', tenaliForm)
 	.service('tenaliCompiler', tenaliCompiler);
 
-	tenaliForm.$inject = ['tenaliCompiler'];
+	tenaliForm.$inject = ['$compile', 'tenaliCompiler'];
 
-	function tenaliForm(tc) {
+	function tenaliForm($compile, tc) {
 		var directive = {
 			restrict: 'E',
 			replace: true,
 			scope: {
 				schema: '=from',
-				variant: '=for',
-				engine: '=using',
-				formModel: '=as'
+				variant: '@for',
+				engine: '@using',
+				myForm: '=to'
 			},
-			link: postLink
+			compile: getForm
 		}
 
 		return directive;
 
-		function updateForm(scope, iElem) {
+		function updateForm(scope, iElem, iAttrs) { // DEPRICATED
 			return function(schema, oldSchema) {
 				if(scope.schema==oldSchema || !scope.schema) return;
 
-				var formElements = tc.compile(scope.schema, scope.variant, scope.engine);
-				var formStart = '<form name="tenaliForm">';
+				var formName = iAttrs.name || 'tenaliForm';
+				var formStart = '<form name="'+ formName +'">';
 				var formEnd = '</form>';
+
+				var formElements = tc.compile(scope.schema, scope.variant, scope.engine);
 				(function() {
 					iElem.html([formStart].concat(formElements).concat([formEnd]).join(' '));
 				})()
 			}
 		}
 
+
 		function postLink(scope, iElem, iAttrs) {
-			iAttrs.$observe('from', updateForm(scope, iElem));
+			function watchSchema(scope) {
+				return scope.$eval(iAttrs.from);
+			}
+
+			function handleSchemaChange(schema, oldSchema) {
+				console.log('handleSchemaChange', scope.schema, oldSchema,  !scope.schema);
+				if(!scope.schema) return;
+
+				iElem.replaceWith(
+					$compile(
+						['<form name="'+ (iAttrs.name || 'tenaliForm') +'">'].concat(
+							tc.compile(scope.schema, scope.variant, scope.engine)
+						).concat(
+							['</form>']
+						).join('')
+					)(scope)
+				);
+			}
+
+			console.log("in postLink", scope.myForm);
+			scope.$watch(watchSchema, handleSchemaChange);
+		}
+
+		function getForm(iElem, iAttrs) {
+			return postLink;
 		}
 	}
 
@@ -64,10 +91,8 @@
 
 		function compile(schema, variant, engine) {
 			return tenaliInstance.get(schema.map(function(item) {
-				if(!item.variant)
-					item.variant = variant;
-				if(!item.engine)
-					item.engine = engine;
+				item.variant = item.variant || variant;
+				item.engine = item.engine || engine;
 				return item;
 			}))
 		}

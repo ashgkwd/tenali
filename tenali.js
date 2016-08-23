@@ -1,16 +1,16 @@
 /** 
 * @author Ashish Gaikwad <ash.gkwd@gmail.com>
 * @license MIT
-* @version 0.0.1
+* @version 0.0.2
 * @desc Tenali is form element generating library based on JSON schema
 * {@link http://github.com/ashgkwd/tenali}
 */
 
 Tenali._logHelper = function(level, label, message) {
 	switch(level) {
-		case 'e': console.error(label, message);
-		case 'w': console.warn(label, message);
-		case 'i': console.info(label, message);
+		case 'e': console.error(label, message); break;
+		case 'w': console.warn(label, message); break;
+		case 'i': console.info(label, message); break;
 		case 'd': console.debug(label, message); break;
 		default: console.log(label, message);
 	}

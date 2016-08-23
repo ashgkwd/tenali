@@ -5,31 +5,20 @@
 	<title>Angular Using Tenali For Form Generation</title>
 </head>
 <body>
-<h1>Tenali - sabse chatur budhiman</h1>
-<div ng-controller="mainCtrl">
-	<p>{{schema}}</p>
-	<tenali-form from="schema" for="pikachu" using="LoDash"></tenali-form>
-</div>
+	<h1>Tenali - sabse chatur budhiman</h1>
+	<div ng-controller="mainCtrl">
+		<h2>Schema</h2>
+		<p>{{schema}}</p>
 
-<template style="display:none" id="ft" variant="foundation-apps" input="text" engine="LoDash">
-	<label><%= data.label %><span class='inline-label'><% if(data.prefix) { %><span class='form-label'><%= data.prefix %></span><% } %><input type='<%= data.type || _meta_.input %>' name='<%= data.name %>' placeholder='<%= data.placeholder %>'><% if(data.sufix) { %><span class='form-label'><%= data.sufix %></span><% } %></span></label>
-</template>
+		<h2>Model</h2>
+		<p>{{myModel}}</p>
 
-<aside style="display:none" id="fst">
-	<script type="text/template" variant="foundation-apps" input='["text", "password", "datetime", "datetime-local", "date", "month", "time", "week", "number", "email", "url", "search", "tel", "color"]' engine="LoDash">
-		<label><%= data.label %><span class='inline-label'><% if(data.prefix) { %><span class='form-label'><%= data.prefix %></span><% } %><input type='<%= data.type || _meta_.input %>' name='<%= data.name %>' placeholder='<%= data.placeholder %>'><% if(data.sufix) { %><span class='form-label'><%= data.sufix %></span><% } %></span></label>
-	</script>
-	<script type="text/template" variant="foundation-apps" input="select" engine="LoDash">
-		<label><%= data.label %></label>
-		<select name='<%= data.name %>'>
- 		<% data.option.forEach(function(op) { %>
- 			<option value='<%= op %>'><%= op %></option>
- 		<% }); %>
-	</script>
-</aside>
+		<h2>Tenali Form</h2>
+		<tenali-form from="schema" for="foundation-apps" using="LoDash" to="myModel"></tenali-form>
+	</div>
 
-<link rel="stylesheet" href="foundation-apps.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.js"></script>
+	<link rel="stylesheet" href="foundation-apps.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.js"></script>
 	<script src="../tenali.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
 	<script src="../angular-tenali.js"></script>

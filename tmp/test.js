@@ -9,55 +9,82 @@ function setDefaults(item) {
 	return item;
 }
 
-// var myTemplate = [{
-// 	input: ["text", "password", "datetime", "datetime-local", "date", "month", "time", "week", "number", "email", "url", "search", "tel", "color"],
-// 	template: "<label>" +
-// 		"<%= data.label %>" +
-// 		"<span class='inline-label'>" +
-// 		"<% if(data.prefix) { %><span class='form-label'><%= data.prefix %></span><% } %>" +
-// 		"<input type='<%= data.type || _meta_.input %>' name='<%= data.name %>' placeholder='<%= data.placeholder %>'>" +
-// 		"<% if(data.sufix) { %><span class='form-label'><%= data.sufix %></span><% } %>" +
-// 		"</span>" +
-// 		"</label>"
-// }, {
-// 	input: "select",
-// 	template: "<label><%= data.label %></label>" +
-// 		"<select name='<%= data.name %>'>" +
-// 		"<% data.option.forEach(function(op) { %>" +
-// 			"<option value='<%= op %>'><%= op %></option>" +
-// 		"<% }); %>"
-// }].map(setDefaults);
+function strToOption(str) {
+	return {value: str, label: str};
+}
 
 var mySchema = [{
+	input: "select",
+	data: {
+		label: "Source Type",
+		options: ["Field Capture", "Walk In", "Phone Enquery", "Campus"].map(strToOption),
+		ngModel: "myForm.source_type"
+	}
+}, {
 	input: "text",
 	data: {
-		label: "Username",
-		type: "text",
-		placeholder: "Thunder Shock"
+		label: "Full Name",
+		placeholder: "Murali Prasad Krishnadevraya",
+		ngModel: "myForm.name"
 	}
 }, {
-	input: "email",
+	input: "text",
 	data: {
-		label: "Your Pokemaster Id",
-		sufix: "@pokemaster.com",
-		type: "email",
-		placeholder: "Ash"
+		label: "How (s)he heard about us ?",
+		placeholder: "Job Fair or Pamplet or Friend",
+		ngModel: "myForm.source"
 	}
 }, {
-	input: "password",
+	input: "number",
 	data: {
-		label: "Password",
-		type: "password",
-		placeholder: "Awesome!",
-		prefix: "Make is hard"
+		label: "Age",
+		placeholder: "24",
+		ngModel: "myForm.age"
+	}
+}, {
+	input: "text",
+	data: {
+		label: "Location",
+		placeholder: "Sanjaynagar, Bangalore",
+		ngModel: "myForm.address"
+	}
+}, {
+	input: "text",
+	data: {
+		label: "Courses Interested In",
+		placeholder: "Electrician, Tally",
+		ngModel: "myForm.coursesinterested"
+	}
+}, {
+	input: "radio",
+	data: {
+		label: "Is {{lead.name}} Experienced Or Fresher ?",
+		options: [{
+			label: "Experienced",
+			value: true,
+			id: "rb-experienced"
+		}, {
+			label: "Fresher",
+			value: false,
+			id: "rb-fresher"
+		}],
+		ngModel: "myForm.experienced"
+	}
+}, {
+	input: "textarea",
+	data: {
+		label: "Comments Or Remarks",
+		placeholder: "{{lead.name}} is very talented and hard working person",
+		ngModel: "myForm.remarks"
 	}
 }, {
 	input: "select",
 	data: {
-		label: "Select Any Option",
-		option: ["Hello", "Dear", "World"]
+		label: "Engagement Level",
+		options: ["Stranger", "Might Be", "Encourage", "Admitted", "Disqualified", "Invalid"].map(strToOption),
+		ngModel: "myForm.engagement_level"
 	}
-}].map(setDefaults);
+}] //.map(setDefaults);
 
 // var testT = new Tenali();
 // testT.register(myTemplate);
