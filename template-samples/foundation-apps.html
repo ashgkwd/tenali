@@ -1,0 +1,54 @@
+<aside style="display:none" id="foundation-apps-tenali">
+	<script type="text/template" variant="foundation-apps" input='["text", "password", "datetime", "datetime-local", "date", "month", "time", "week", "number", "email", "url", "search", "tel", "color"]' engine="LoDash">
+		<label>
+			<%= data.label %>
+			<span class='inline-label'>
+				<% if(data.prefix) { %>
+					<span class='form-label'>
+						<%= data.prefix %>
+					</span>
+				<% } %>
+				<input ng-model='<%= data.ngModel %>' type='<%= data.type || _meta_.input %>' name='<%= data.name %>' placeholder='<%= data.placeholder %>'>
+				<% if(data.sufix) { %>
+					<span class='form-label'>
+						<%= data.sufix %>
+					</span>
+				<% } %>
+			</span>
+		</label>
+	</script>
+
+	<script type="text/template" variant="foundation-apps" input="textarea" engine="LoDash">
+		<label>
+			<%= data.label %>
+		</label>
+		<textarea ng-model='<%= data.ngModel %>' placeholder="<%= data.placeholder %>"></textarea>
+	</script>
+
+	<script type="text/template" variant="foundation-apps" input="select" engine="LoDash">
+		<label>
+			<%= data.label %>
+		</label>
+		<select ng-model='<%= data.ngModel %>' name='<%= data.name %>'>
+			<% data.options.forEach(function(item) { %>
+				<option value='<%= item.value %>'>
+					<%= item.label %>
+				</option>
+			<% }); %>
+		</select>
+	</script>
+
+	<script type="text/template" variant="foundation-apps" input='["checkbox", "radio"]' engine="LoDash">
+		<div style="margin-bottom:1rem">
+			<label>
+				<%= data.label %>
+			</label>
+			<% data.options.forEach(function(item) { %>
+				<input ng-model='<%= data.ngModel %>' id="<%= item.id || ('checkbox' + item.value) %>" type="<%= _meta_.input %>" value="<%= item.value %>" name="<%= data.name %>">
+				<label for="<%= item.id || ('checkbox' + item.value) %>">
+					<%= item.label %>
+				</label>
+			<% }); %>
+		</div>
+	</script>
+</aside>
