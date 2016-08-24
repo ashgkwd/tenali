@@ -1,0 +1,27 @@
+{
+  "name": "tenali",
+  "main": "tenali.js",
+  "homepage": "https://github.com/ashgkwd/tenali",
+  "description": "Template management library in plug and play style",
+  "keywords": [
+    "Tenali",
+    "Template",
+    "Schema",
+    "JSON",
+    "Angular",
+    "Ionic",
+    "Foundation"
+  ],
+  "authors": [
+    "Ashish Gaikwad <ash.gkwd@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/assets/components",
+    "test",
+    "tests"
+  ]
+}
