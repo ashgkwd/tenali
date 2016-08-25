@@ -1,6 +1,6 @@
 (function() {
 	'use strict';
-	angular.module('TenaliFx', [])
+	angular.module('Tenali', [])
 	.directive('tenaliForm', tenaliForm)
 	.service('tenaliCompiler', tenaliCompiler);
 
@@ -14,30 +14,16 @@
 				schema: '=from',
 				variant: '@for',
 				engine: '@using',
-				myForm: '=to'
+				to: '=to'
 			},
 			compile: getForm
 		}
 
 		return directive;
 
-		function updateForm(scope, iElem, iAttrs) { // DEPRICATED
-			return function(schema, oldSchema) {
-				if(scope.schema==oldSchema || !scope.schema) return;
-
-				var formName = iAttrs.name || 'tenaliForm';
-				var formStart = '<form name="'+ formName +'">';
-				var formEnd = '</form>';
-
-				var formElements = tc.compile(scope.schema, scope.variant, scope.engine);
-				(function() {
-					iElem.html([formStart].concat(formElements).concat([formEnd]).join(' '));
-				})()
-			}
-		}
-
-
 		function postLink(scope, iElem, iAttrs) {
+			scope.$watch(watchSchema, handleSchemaChange);
+
 			function watchSchema(scope) {
 				return scope.$eval(iAttrs.from);
 			}
@@ -56,9 +42,6 @@
 					)(scope)
 				);
 			}
-
-			console.log("in postLink", scope.myForm);
-			scope.$watch(watchSchema, handleSchemaChange);
 		}
 
 		function getForm(iElem, iAttrs) {
@@ -106,9 +89,7 @@
 		}
 
 		function getSetById(id) {
-			var s= tenaliInstance.template.getSetById(id);
-			console.log('ANGULAR', s);
-			return s;
+			return tenaliInstance.template.getSetById(id);
 		}
 	}
 })();
