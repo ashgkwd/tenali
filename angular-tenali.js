@@ -21,6 +21,24 @@
 
 		return directive;
 
+		function constructFormTag(iAttrs) {
+			console.log('constructFormTag', iAttrs);
+			var ignoreAttrs = ['from', 'for', 'using', 'to'];
+
+			return ['<form']
+				.concat(
+					Object.keys(iAttrs.$attr)
+					.map(handleAttr)
+					.filter(Boolean)
+				).concat(['>'])
+				.join(' ')
+
+			function handleAttr(item) {
+				if(ignoreAttrs.indexOf(item) < 0)
+					return iAttrs.$attr[item] + '="' + iAttrs[item] + '"';
+			}
+		}
+
 		function postLink(scope, iElem, iAttrs) {
 			scope.$watch(watchSchema, handleSchemaChange);
 
@@ -34,7 +52,7 @@
 
 				iElem.replaceWith(
 					$compile(
-						['<form name="'+ (iAttrs.name || 'tenaliForm') +'">'].concat(
+						[constructFormTag(iAttrs)].concat(
 							tc.compile(scope.schema, scope.variant, scope.engine)
 						).concat(
 							['</form>']
