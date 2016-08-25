@@ -1,7 +1,7 @@
 /** 
 * @author Ashish Gaikwad <ash.gkwd@gmail.com>
 * @license MIT
-* @version 0.0.2
+* @version 0.0.3
 * @desc Tenali is form element generating library based on JSON schema
 * {@link http://github.com/ashgkwd/tenali}
 */
