@@ -47,7 +47,6 @@
 			}
 
 			function handleSchemaChange(schema, oldSchema) {
-				console.log('handleSchemaChange', scope.schema, oldSchema,  !scope.schema);
 				if(!scope.schema) return;
 
 				iElem.replaceWith(
@@ -55,7 +54,7 @@
 						[constructFormTag(iAttrs)].concat(
 							tc.compile(scope.schema, scope.variant, scope.engine)
 						).concat(
-							['</form>']
+							[iElem.html(), '</form>']
 						).join('')
 					)(scope)
 				);
