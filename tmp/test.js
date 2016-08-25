@@ -18,42 +18,42 @@ var mySchema = [{
 	data: {
 		label: "Source Type",
 		options: ["Field Capture", "Walk In", "Phone Enquery", "Campus"].map(strToOption),
-		ngModel: "myForm.source_type"
+		ngModel: "to.source_type"
 	}
 }, {
 	input: "text",
 	data: {
 		label: "Full Name",
 		placeholder: "Murali Prasad Krishnadevraya",
-		ngModel: "myForm.name"
+		ngModel: "to.name"
 	}
 }, {
 	input: "text",
 	data: {
 		label: "How (s)he heard about us ?",
 		placeholder: "Job Fair or Pamplet or Friend",
-		ngModel: "myForm.source"
+		ngModel: "to.source"
 	}
 }, {
 	input: "number",
 	data: {
 		label: "Age",
 		placeholder: "24",
-		ngModel: "myForm.age"
+		ngModel: "to.age"
 	}
 }, {
 	input: "text",
 	data: {
 		label: "Location",
 		placeholder: "Sanjaynagar, Bangalore",
-		ngModel: "myForm.address"
+		ngModel: "to.address"
 	}
 }, {
 	input: "text",
 	data: {
 		label: "Courses Interested In",
 		placeholder: "Electrician, Tally",
-		ngModel: "myForm.coursesinterested"
+		ngModel: "to.coursesinterested"
 	}
 }, {
 	input: "radio",
@@ -68,21 +68,21 @@ var mySchema = [{
 			value: false,
 			id: "rb-fresher"
 		}],
-		ngModel: "myForm.experienced"
+		ngModel: "to.experienced"
 	}
 }, {
 	input: "textarea",
 	data: {
 		label: "Comments Or Remarks",
 		placeholder: "{{lead.name}} is very talented and hard working person",
-		ngModel: "myForm.remarks"
+		ngModel: "to.remarks"
 	}
 }, {
 	input: "select",
 	data: {
 		label: "Engagement Level",
 		options: ["Stranger", "Might Be", "Encourage", "Admitted", "Disqualified", "Invalid"].map(strToOption),
-		ngModel: "myForm.engagement_level"
+		ngModel: "to.engagement_level"
 	}
 }] //.map(setDefaults);
 
