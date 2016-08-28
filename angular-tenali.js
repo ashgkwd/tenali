@@ -10,12 +10,6 @@
 		var directive = {
 			restrict: 'E',
 			replace: true,
-			scope: {
-				schema: '=from',
-				variant: '@for',
-				engine: '@using',
-				to: '=to'
-			},
 			compile: getForm
 		}
 
@@ -40,19 +34,19 @@
 		}
 
 		function postLink(scope, iElem, iAttrs) {
-			scope.$watch(watchSchema, handleSchemaChange);
+			scope.$watch(iAttrs.from, handleSchemaChange);
 
 			function watchSchema(scope) {
 				return scope.$eval(iAttrs.from);
 			}
 
 			function handleSchemaChange(schema, oldSchema) {
-				if(!scope.schema) return;
+				if(!schema) return;
 
 				iElem.replaceWith(
 					$compile(
 						[constructFormTag(iAttrs)].concat(
-							tc.compile(scope.schema, scope.variant, scope.engine)
+							tc.compile(schema, iAttrs.variant, iAttrs.engine)
 						).concat(
 							[iElem.html(), '</form>']
 						).join('')
