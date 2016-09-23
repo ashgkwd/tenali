@@ -1,0 +1,27 @@
+{
+  "name": "tenali",
+  "version": "1.0.0",
+  "description": "Creates Elements (HTML, SVG...) based on JSON schema",
+  "main": "src/tenali.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashgkwd/tenali.git"
+  },
+  "keywords": [
+    "schema",
+    "form",
+    "angular",
+    "react",
+    "json",
+    "schema"
+  ],
+  "author": "Ashish Gaikwad <ash.gkwd@gmail.com> (http://ashish.gaikwad.rocks/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ashgkwd/tenali/issues"
+  },
+  "homepage": "https://github.com/ashgkwd/tenali#readme"
+}
