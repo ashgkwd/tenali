@@ -4,7 +4,9 @@
   "description": "Creates Elements (HTML, SVG...) based on JSON schema",
   "main": "src/tenali.js",
   "scripts": {
-    "test": "mocha test/tenali.test.js -w"
+    "test": "mocha test/tenali.test.js",
+    "preversion": "npm test",
+    "postversion": "git push origin master && git push --tags && rm -rf build/temp"
   },
   "repository": {
     "type": "git",
@@ -15,8 +17,7 @@
     "form",
     "angular",
     "react",
-    "json",
-    "schema"
+    "json"
   ],
   "author": "Ashish Gaikwad <ash.gkwd@gmail.com> (http://ashish.gaikwad.rocks/)",
   "license": "MIT",
