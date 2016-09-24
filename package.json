@@ -1,6 +1,6 @@
 {
   "name": "tenali",
-  "version": "1.0.3-0",
+  "version": "1.0.4-0",
   "description": "Creates Elements (HTML, SVG...) based on JSON schema",
   "main": "src/tenali.js",
   "scripts": {
