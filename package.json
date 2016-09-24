@@ -1,11 +1,12 @@
 {
   "name": "tenali",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Creates Elements (HTML, SVG...) based on JSON schema",
   "main": "src/tenali.js",
   "scripts": {
     "test": "mocha test/tenali.test.js",
     "preversion": "npm test",
+    "version": "git co -- .",
     "postversion": "git push origin master && git push --tags && rm -rf build/temp"
   },
   "repository": {
