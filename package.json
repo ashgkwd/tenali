@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha test/tenali.test.js",
     "preversion": "npm test",
-    "version": "git co -- . #tr",
+    "version": "",
     "postversion": "git push origin master && git push --tags && rm -rf build/temp"
   },
   "repository": {
