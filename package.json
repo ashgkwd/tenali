@@ -6,7 +6,6 @@
   "scripts": {
     "test": "mocha test/tenali.test.js",
     "preversion": "npm test",
-    "version": "git checkout -- . # This will reset version bump in package.json and npm version will bump again",
     "postversion": "git push origin master && git push --tags && rm -rf build/temp"
   },
   "repository": {
