@@ -29,10 +29,10 @@ describe('tenali', function () {
 			}
 		});
 
-		it('should return a template string', function () {
+		it('should return a template array', function () {
 			var tenaliInstance = new tenali();
 			tenaliInstance.register(templates);
-			tenaliInstance.get(templates)[0].should.equal(templates[0].template);
+			expect(tenaliInstance.get(templates)).to.include(templates[0].template);
 		});
 	})
 })
