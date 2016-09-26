@@ -47,7 +47,7 @@ var myTemplate = [{
 	"input": "number",
 	"variant": "foundation",
 	"engine": "LoDash",
-	"template": "<label>How many puppies?<input type="number" placeholder="<%= data.placeholder %>"></label>"
+	"template": "<label>How many puppies?<input type='number' placeholder='<%= data.placeholder %>'></label>"
 }]
 ```
 Good thing about JSON templates is that you can use exact same JSON
@@ -107,9 +107,9 @@ tenali.get(mySchema);
 
 /* returns an array of template strings
 [
-	"<label>How many puppies?<input type="number" placeholder="Enter Da Number"></label>",
+	"<label>How many puppies?<input type='number' placeholder='Enter Da Number'></label>",
 	"<p>Hello Tenali!</p>",
-	"<label>How many puppies?<input type="number" placeholder="Enter Ano Da Number"></label>"
+	"<label>How many puppies?<input type='number' placeholder='Enter Ano Da Number'></label>"
 ]
 */
 ```
