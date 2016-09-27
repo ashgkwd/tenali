@@ -1,11 +1,8 @@
 # Tenali - A Schema Based Element Generation Library
 
-Tenali simplifies element (HTML, SVG...) generation based on schema (JSON).
-You can use it for dynamic form generation. It's faster and more customizable
-than "Angular Schema Form" library.
+Tenali simplifies element (HTML, SVG...) generation based on schema (JSON). You can use it for dynamic form generation. It's faster and more customizable than "Angular Schema Form" library.
 
-Tenali have zero dependency and you can plug in your favorite template library
-such as handlebar, mustache, lodash...
+Tenali have zero dependency and you can plug in your favorite template library such as handlebar, mustache, lodash...
 
 # Install Tenali
 
@@ -22,7 +19,9 @@ Tenali needs two things in order to work.
  - templates
  - schema
 
-## Registering templates
+Also if you are using templating library, then you need to tell tenali about it. Library must have `.template(string)` interface which gives function which will take data as parameter. This interface is like [_.template](https://lodash.com/docs)
+
+# Registering templates
 
 You can register template either using JSON or HTML. Template should
 have following attributes:
@@ -50,9 +49,7 @@ var myTemplate = [{
 	"template": "<label>How many puppies?<input type='number' placeholder='<%= data.placeholder %>'></label>"
 }]
 ```
-Good thing about JSON templates is that you can use exact same JSON
-as schema. Downside is that as template gets complicated, writing it
-in JSON is painful.
+Good thing about JSON templates is that you can use exact same JSON as schema. Downside is that as template gets complicated, writing it in JSON is painful.
 
 HTML templates can make life easy. Here is example of HTML template:
 ```html
@@ -73,7 +70,17 @@ var tenali = new Tenali();
 tenali.register(myTemplate);
 ```
 
-## Accessing templates using schema
+# Registering templating engine (library)
+
+You can register any templating library as engine in tenali, so that your templates will be compiled using this library. Here is example of registering LoDash as templating engine:
+```javascript
+var tenali = new Tenali();
+tenali.engine.add("LoDash", _); // Assuming _ is available
+```
+
+You can create your own templating library and register it with tenali as long as it provides interface similar to lodash's `_.template` function.
+
+# Accessing templates using schema
 
 Once templates are registered, you can access then based on JSON schema.
 Schema should have following attributes:
