@@ -121,6 +121,37 @@ tenali.get(mySchema);
 */
 ```
 
+# Angular Tenali
+
+Angular Tenali provides `tenaliCompiler` service and `<tenali-form>` directive. You can use Angular Tenali by linking file `angular-tenali.js` in your project. Your app can use Angular Tenali module by mentioning `Tenali` as module dependency.
+
+```javascript
+var app = andular.module('myApp', ['Tenali']);
+```
+
+You can register templates and engines in your app's `config` function using `tenaliCompiler`'s `engine.add` and `register` methods.
+
+ ```javascript
+app.config(configFn);
+
+configFn.$inject = ['tenaliCompiler'];
+function configFn(tenaliCompiler) {
+	tenaliCompiler.engine.add("LoDash", _);
+
+	// for templates set HTML example, see `template-samples/foundation-apps.html` file.
+	var templates = tenaliCompiler.template.getSetById('foundation-apps-tenali');
+	tenaliCompiler.register(templates);
+}
+```
+
+In your angular templates, you can use `<tenali-form>` directive as follows:
+
+```html
+<tenali-form from="schema" for="foundation-apps" using="LoDash" to="myModel">
+	<p> Anything inside will be come last element. After all elements in `schema` </p>
+</tenali-form>
+```
+
 # License
 
 MIT © Ashish Gaikwad 2016
