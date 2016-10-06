@@ -148,7 +148,7 @@ In your angular templates, you can use `<tenali-form>` directive as follows:
 
 ```html
 <tenali-form from="schema" for="foundation-apps" using="LoDash" to="myModel">
-	<p> Anything inside will be come last element. After all elements in `schema` </p>
+	<p> Anything inside will become last element. After all elements in `schema` </p>
 </tenali-form>
 ```
 
