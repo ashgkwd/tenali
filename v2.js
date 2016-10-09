@@ -1,7 +1,16 @@
 import Tenali from 'tenali';
 
-const getTemplates = () => {
-	Tenali.use(Server.getTemplates('all'), {
+/** Tenali.use
+* @params {Object} Template Object with following properties
+* {Any} component. It can be string or object or function which will be
+* returned as template on calling Tenali with schema param
+* {String} id. It will used to identify which component to return
+* {Function} engine. It is optional param which will be used to compile
+* component before returning
+*/
+
+const useTemplates = () => {
+	Tenali.useFromHTML('#foundation-app-templates', {
 		engine: _
 	});
 }
@@ -10,10 +19,10 @@ const init = () => {
 	Tenali.use({
 		component: TodoList,
 		id: "todo-list",
-		engine: "none"
+		engine: MyEngineFn
 	});
 
-	getTemplates();
+	useTemplates();
 }
 
 export const bySchema = (schema) => {
